@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:new_linux_plugin/new_linux_plugin.dart';
-import 'package:new_linux/ui/common_widgets/Buttons.dart';
-import 'package:new_linux/ui/common_widgets/NotificationDialog.dart';
+import 'package:bk_gps_monitoring/ui/common_widgets/Buttons.dart';
+import 'package:bk_gps_monitoring/ui/common_widgets/NotificationDialog.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -91,7 +89,8 @@ class _HomeState extends State<Home> {
     String? result = "";
     loop = true;
     while(loop) {
-      await Future.delayed(Duration(milliseconds: 500), () async {
+      _sendData();
+      await Future.delayed(Duration(seconds: 1), () async {
         if (kDebugMode) {
           result = await _receiveData();
           print(result);
@@ -108,7 +107,7 @@ class _HomeState extends State<Home> {
     bool sendData;
     try {
       sendData =
-          await _newLinuxPlugin.sendData() ?? false;
+          await _newLinuxPlugin.endData() ?? false;
     } on PlatformException {
       sendData = false;
     }
@@ -137,7 +136,7 @@ class _HomeState extends State<Home> {
             }
             else {
               if(messageQueueAvailable) {
-                Process.run("tmp/./send", []);
+                // Process.run("assets/tmp/send", []);
                 isSending = true;
               }
             }
@@ -155,7 +154,7 @@ class _HomeState extends State<Home> {
               else {
                 showConfirmDialog("Not available to send data", "Start to send data by click \"Start\" and Start GPS_SDR again", 
                 (){
-                  Process.run("tmp/./send", []);
+                  // Process.run("assets/tmp/send", []);
                   isSending = true;
                 }, 
                 (){}, context, "Start", "Cancel");

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:new_linux/route.dart';
-import 'package:new_linux/utils/ColorConstant.dart';
+import 'package:bk_gps_monitoring/route.dart';
+import 'package:bk_gps_monitoring/utils/ColorConstant.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -23,12 +22,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: AppColors.white,
-      ),
-       child: Container(
+    return SafeArea(
+        child: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: AppColors.white,
+        ),
+        child: Container(
           height: 300,
           width: 300,
           child: Column(
@@ -41,11 +41,15 @@ class _SplashScreenState extends State<SplashScreen> {
             ],
           ),
         )
+      ),
     );
   }
 
   _navigate() async {
-    Navigator.of(context).pushNamedAndRemoveUntil(
-      Routes.home, (Route<dynamic> route) => false);
+    await Future.delayed(Duration(seconds: 1), () {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+      Routes.tabbar, (Route<dynamic> route) => false);
+    });
+
   }
 }
