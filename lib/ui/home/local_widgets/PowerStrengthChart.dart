@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:bk_gps_monitoring/ui/common_widgets/provider/PowerStrengthProvider.dart';
+import 'package:bk_gps_monitoring/provider/PowerStrengthProvider.dart';
 import 'package:bk_gps_monitoring/utils/ColorConstant.dart';
 import 'package:new_linux_plugin/new_linux_plugin.dart';
 import 'package:bk_gps_monitoring/ui/common_widgets/Buttons.dart';
@@ -53,7 +53,7 @@ class _PowerStrengthChartState extends State<PowerStrengthChart> {
   void didChangeDependencies() {
     _powerStrengthProvider = Provider.of(context);
     if(!_init) {
-      Future.delayed(Duration(seconds: 2), () async {
+      Future.delayed(const Duration(seconds: 1), () async {
         _powerStrengthProvider.initData();
         _powerStrengthProvider.updateValue({});
         _init = true;
@@ -183,17 +183,19 @@ class _PowerStrengthChartState extends State<PowerStrengthChart> {
             SizedBox(
               width: 200,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   const Text(
-                    'GNSS_GPS_SDR',
+                    'BK GPS Monitoring',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 50,),
                   confirmButton("Init MessageQueue", (){
                     _initMessageQueue();
                     messageQueueAvailable = true;
                   }),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 25,),
                   confirmButton("Send Data", () async {
                     if(loop) {
                       showWarningDialog("Please waiting for end of data before", context);
@@ -209,7 +211,7 @@ class _PowerStrengthChartState extends State<PowerStrengthChart> {
                       }
                     }
                   }),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 25,),
                   confirmButton("Start GPS_SDR", (){
                       if(loop) {
                       showWarningDialog("Please waiting for end of Message Queue, then start again", context);
@@ -243,13 +245,13 @@ class _PowerStrengthChartState extends State<PowerStrengthChart> {
                     }
                     }
                   }),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 25,),
                   confirmButton("Stop receive Data", () async {
                     isSending = false;
                     loop = false;
                     // await _endData();
                   }),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 25,),
                   confirmButton("Clear MessageQueue", (){
                     if(loop) {
                       showWarningDialog("Please waiting for end of Message Queue, then clear queue", context);

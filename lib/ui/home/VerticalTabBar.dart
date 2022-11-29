@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bk_gps_monitoring/ui/common_widgets/provider/PowerStrengthProvider.dart';
+import 'package:bk_gps_monitoring/provider/PowerStrengthProvider.dart';
 import 'package:bk_gps_monitoring/ui/home/local_widgets/Demo.dart';
 import 'package:bk_gps_monitoring/ui/home/local_widgets/PowerStrengthChart.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +17,7 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
   int pageCount = 3;
 
   static const List<String> screenTitles = [
-    "Demo",
+    "Power Strength",
     "Files",
     "Real Time",
   ];

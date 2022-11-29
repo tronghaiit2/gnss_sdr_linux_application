@@ -25,28 +25,24 @@ class _SplashScreenState extends State<SplashScreen> {
     return SafeArea(
         child: Container(
         alignment: Alignment.center,
+        // ignore: prefer_const_constructors
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: Colors.blueGrey,
         ),
-        child: Container(
+        child: const SizedBox(
           height: 300,
           width: 300,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const SpinKitCircle(
-                color: AppColors.main_red,
-                size: 50,
-              )
-            ],
-          ),
+          child: SpinKitCircle(
+            color: AppColors.main_red,
+            size: 50,
+          )
         )
       ),
     );
   }
 
   _navigate() async {
-    await Future.delayed(Duration(seconds: 1), () {
+    await Future.delayed(const Duration(seconds: 1), () {
       Navigator.of(context).pushNamedAndRemoveUntil(
       Routes.tabbar, (Route<dynamic> route) => false);
     });

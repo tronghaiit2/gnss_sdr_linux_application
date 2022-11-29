@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:bk_gps_monitoring/ui/home/local_widgets/PowerStrengthChart.dart';
-import 'package:bk_gps_monitoring/ui/common_widgets/provider/PowerStrengthProvider.dart';
+import 'package:bk_gps_monitoring/provider/PowerStrengthProvider.dart';
 
 class Demo extends StatefulWidget {
   Demo({Key? key}) : super(key: key);

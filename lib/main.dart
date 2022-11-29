@@ -1,31 +1,25 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'package:bk_gps_monitoring/route.dart';
 import 'package:bk_gps_monitoring/splash_screen.dart';
-import 'package:bk_gps_monitoring/ui/home/Home.dart';
 
-import 'ui/common_widgets/provider/PowerStrengthProvider.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await windowManager.ensureInitialized();
-  // if (Platform.isLinux) {
-  // WindowOptions windowOptions = const WindowOptions(
-  //   minimumSize: Size(800, 600),
-  //   maximumSize: Size.infinite,
-  //   center: false,
-  //   backgroundColor: Colors.transparent,
-  //   skipTaskbar: true,
-  //   titleBarStyle: TitleBarStyle.normal,
-  // );
-  // windowManager.waitUntilReadyToShow(windowOptions, () async {
-  //   await windowManager.show();
-  //   await windowManager.focus();
-  // });
-  // }
+  await windowManager.ensureInitialized();
+  // ignore: prefer_const_constructors
+  WindowOptions windowOptions = WindowOptions(
+    minimumSize: const Size(1680, 720),
+    maximumSize: Size.infinite,
+    backgroundColor: Colors.transparent,
+    skipTaskbar: false,
+    titleBarStyle: TitleBarStyle.normal,
+  );
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
   runApp(const GNSS_SDR());
 }
 
