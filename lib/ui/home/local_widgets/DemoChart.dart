@@ -1,32 +1,32 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:bk_gps_monitoring/models/ChartDataDemo.dart';
-import 'package:bk_gps_monitoring/models/GnssSdrController.dart';
+import 'package:bk_gps_monitoring/provider/DemoProvider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:bk_gps_monitoring/provider/PowerStrengthProvider.dart';
-import 'package:bk_gps_monitoring/utils/ColorConstant.dart';
 import 'package:new_linux_plugin/new_linux_plugin.dart';
+import 'package:bk_gps_monitoring/models/GnssSdrController.dart';
+import 'package:bk_gps_monitoring/ui/home/local_widgets/MultiChoice.dart';
 import 'package:bk_gps_monitoring/ui/common_widgets/Buttons.dart';
 import 'package:bk_gps_monitoring/ui/common_widgets/NotificationDialog.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:bk_gps_monitoring/utils/ColorConstant.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:bk_gps_monitoring/models/ChartDataPowerStrength.dart';
 
-class PowerStrengthChart extends StatefulWidget {
-  PowerStrengthChart({Key? key, required this.gnssSdrController}) : super(key: key);
+class DemoChart extends StatefulWidget {
+  DemoChart({Key? key, required this.gnssSdrController}) : super(key: key);
   final GnssSdrController gnssSdrController;
 
   @override
-  _PowerStrengthChartState createState() => _PowerStrengthChartState();
+  _DemoChartState createState() => _DemoChartState();
 }
 
-class _PowerStrengthChartState extends State<PowerStrengthChart> {
-  late PowerStrengthProvider _powerStrengthProvider;
+class _DemoChartState extends State<DemoChart> {
+  late DemoProvider _demoProvider;
   late bool _init = false;
 
   // static final _newLinuxPlugin = NewLinuxPlugin();
@@ -34,19 +34,24 @@ class _PowerStrengthChartState extends State<PowerStrengthChart> {
   // late bool messageQueueAvailable = false;
   // late bool loop = false;
   // late bool isSending = false;
-  String? result = "";
 
+  // late List<List<ChartDataDemo>> data;
   late TooltipBehavior _tooltip;
 
+  // late List<String> gpsPRNSelectedList;
+  // late int itemsSelected = 1;
+  
   @override
   void initState() {
     super.initState();
+    // initData();
     // gnssSdrController = GnssSdrController(newLinuxPlugin: _newLinuxPlugin);
     if(widget.gnssSdrController.messageQueueAvailable && widget.gnssSdrController.isSending) {
       loopReceiver();
     }
     _tooltip = TooltipBehavior(enable: true);
   }
+
 
   @override
   void dispose() {
@@ -59,11 +64,11 @@ class _PowerStrengthChartState extends State<PowerStrengthChart> {
 
   @override
   void didChangeDependencies() {
-    _powerStrengthProvider = Provider.of(context);
+    _demoProvider = Provider.of(context);
     if(!_init) {
       Future.delayed(const Duration(seconds: 1), () async {
-        _powerStrengthProvider.initData();
-        _powerStrengthProvider.updateValue({});
+        _demoProvider.initData();
+        _demoProvider.updateValue({});
         _init = true;
       });
     }
@@ -71,17 +76,25 @@ class _PowerStrengthChartState extends State<PowerStrengthChart> {
     super.didChangeDependencies();
   }
 
+  // void sendData(String file) {
+  //   String cmd =  "assets/tmp/$file";
+  //   Process.run(cmd, []);
+  // }
+
   void loopReceiver() async {
-    _powerStrengthProvider.initData();
+    _demoProvider.initData();
     widget.gnssSdrController.loop = true;
     // int start, end, dif;
     int errorCount = 0;
     while(widget.gnssSdrController.loop) {
       widget.gnssSdrController.sendData();
       // start = DateTime.now().millisecondsSinceEpoch;
-      await Future.delayed(const Duration(milliseconds: 980), () async {
+      await Future.delayed(const Duration(milliseconds: 975), () async {
         try {
-          final String? result = await widget.gnssSdrController.receiveCN0();
+          // final String? result = await _receiveData();
+          // final String? result = await _receiveCN0();
+          final String? result = await widget.gnssSdrController.receivePromptI();
+          // final String? result = await widget.gnssSdrController.receivePromptQ();
           if(result != null) {
             if(result == "end") {
               errorCount++;
@@ -93,13 +106,7 @@ class _PowerStrengthChartState extends State<PowerStrengthChart> {
               }
             } else {
               errorCount = 0;
-              _powerStrengthProvider.initData();
-              _powerStrengthProvider.updateValue(json.decode(result));
-              // Map<String, dynamic> data_list = json.decode(result);
-              // for(var item in data_list.entries){
-              //   double CN0 = item.value;
-              //   if(CN0 > 0) data[int.parse(item.key)-1].y = CN0;
-              // }
+              _demoProvider.updateValue(json.decode(result));
             }
           } else {
             errorCount++;
@@ -134,8 +141,8 @@ class _PowerStrengthChartState extends State<PowerStrengthChart> {
         ),
       );
     } else {
-      return Scaffold(
-        backgroundColor: Colors.blueGrey,
+    return Scaffold(
+      backgroundColor: Colors.blueGrey,
         body: Row(
           children: [
             SizedBox(
@@ -217,55 +224,100 @@ class _PowerStrengthChartState extends State<PowerStrengthChart> {
                     }
                   }),
                 ],
-              )
+              ),
             ),
             Expanded(
-              child: Container(
-                  width: 1000,
-                  // margin: const EdgeInsets.all(10.0),
-                  // padding: const EdgeInsets.all(5.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blueAccent)
-                  ),
-                child: SfCartesianChart(
-                  backgroundColor: Colors.white,
-                  plotAreaBorderWidth: 0.9,
-                  plotAreaBorderColor: Colors.white,
-                  primaryXAxis: CategoryAxis(
-                  labelStyle: TextStyle(color: Colors.white),
-                    title: AxisTitle(text: "Satelite")
-                  ),
-                  primaryYAxis: NumericAxis(
-                    labelStyle: TextStyle(color: Colors.white),
-                    title: AxisTitle(text: "C/N0 (dB)"),
-                    minimum: 0, interval: 10
-                  ),
-                  legend: Legend(
-                    isVisible: true,
-                    alignment: ChartAlignment.near
-                  ),
-                  tooltipBehavior: _tooltip,
-                  series: <ChartSeries<ChartDataPowerStrength, String>>[
-                    ColumnSeries<ChartDataPowerStrength, String>(
-                      borderRadius: const BorderRadius.all(Radius.circular(5)),
-                      dataSource: _powerStrengthProvider.data,
-                      isVisible: true,
-                      isVisibleInLegend: true,
-                      legendItemText: "C/N0 index\nof each \nSatelite (dB)",
-                      legendIconType: LegendIconType.rectangle,
-                      // selectionBehavior: SelectionBehavior(enable: true, selectedColor: Colors.red, unselectedColor: Colors.blueAccent),
-                      xValueMapper: (ChartDataPowerStrength data, _) => data.x,
-                      yValueMapper: (ChartDataPowerStrength data, _) => data.y,
-                      name: 'dB',
-                      color: Colors.blueAccent,
-                    )
-                  ]   
-                ),
-              ),
-            )
+              child: diagram(),
+            ),
           ],
-        ),
+        )
       );
     }
+  }
+
+  Widget diagram() {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Select GPS Satellite"),
+        centerTitle: false,
+        toolbarHeight: 50,
+      ),
+      drawer: drawer(),
+      body: Container(
+          width: 1000,
+          margin: const EdgeInsets.only(top: 10.0, bottom: 10.0, right: 10.0),
+          padding: const EdgeInsets.all(5.0),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.blueAccent)
+          ),
+          child: SfCartesianChart(
+            plotAreaBorderWidth: 0.9,
+            primaryXAxis: DateTimeAxis(
+              title: AxisTitle(text: "Times"),
+              intervalType: DateTimeIntervalType.seconds,
+              minimum: _demoProvider.data[0].elementAt(0).x,
+            ),
+            primaryYAxis: NumericAxis(
+              title: AxisTitle(text: "C/N0 (dB)"),
+              // minimum: -200000
+              // interval: 10
+            ),
+            legend: Legend(
+              isVisible: true,
+              alignment: ChartAlignment.near
+            ),
+            tooltipBehavior: _tooltip,
+            series: 
+            _demoProvider.itemsSelected < 2 ? 
+            <ChartSeries<ChartDataDemo, DateTime>>[
+              LineSeries<ChartDataDemo, DateTime>(
+                dataSource: _demoProvider.data[0],
+                isVisible: true,
+                isVisibleInLegend: true,
+                legendItemText: "C/N0 index of\neach Satelite (dB)",
+                legendIconType: LegendIconType.rectangle,
+                // selectionBehavior: SelectionBehavior(enable: true, selectedColor: Colors.red, unselectedColor: Colors.blueAccent),
+                xValueMapper: (ChartDataDemo data, _) => data.x,
+                yValueMapper: (ChartDataDemo data, _) => data.y,
+                name: 'dB',),
+            ] : 
+            <ChartSeries<ChartDataDemo, DateTime>>[
+              for(int i = 1; i < _demoProvider.itemsSelected; i++) 
+              LineSeries<ChartDataDemo, DateTime>(
+                dataSource: _demoProvider.data[i],
+                isVisible: true,
+                isVisibleInLegend: true,
+                legendItemText: "C/N0 index of\nSatelite ${_demoProvider.gpsPRNSelectedList[i-1]} (dB)",
+                legendIconType: LegendIconType.rectangle,
+                // selectionBehavior: SelectionBehavior(enable: true, selectedColor: Colors.red, unselectedColor: Colors.blueAccent),
+                xValueMapper: (ChartDataDemo data, _) => data.x,
+                yValueMapper: (ChartDataDemo data, _) => data.y,
+                animationDuration: 0,
+                name: 'dB',),
+            ]
+          ),
+        ),
+    );
+  }
+
+  Widget drawer() {
+    return Container(
+        height: 300,
+        width: 1280,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.blueGrey, width: 2)
+        ),
+        child: MultiChoice(
+          onSelectParam: (HashSet<String> selectedList) {
+            // do something with param
+            _demoProvider.gpsPRNSelectedList = selectedList.toList();
+            _demoProvider.itemsSelected = _demoProvider.gpsPRNSelectedList.length + 1;
+            _demoProvider.gpsPRNSelectedList.sort();
+            loopReceiver();
+            Navigator.pop(context);
+            print(_demoProvider.gpsPRNSelectedList.toString());
+          }
+        ),
+      );
   }
 }

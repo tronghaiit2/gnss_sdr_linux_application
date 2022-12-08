@@ -1,42 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:bk_gps_monitoring/models/ChartDataPowerStrength.dart';
 
 class PowerStrengthProvider extends ChangeNotifier{
-  late List<ChartData> data;
+  late List<ChartDataPowerStrength> data;
 
   void initData() {
     data = [
-      ChartData('01', 0),
-      ChartData('02', 0),
-      ChartData('03', 0),
-      ChartData('04', 0),
-      ChartData('05', 0),
-      ChartData('06', 0),
-      ChartData('07', 0),
-      ChartData('08', 0),
-      ChartData('09', 0),
-      ChartData('10', 0),
-      ChartData('11', 0),
-      ChartData('12', 0),
-      ChartData('13', 0),
-      ChartData('14', 0),
-      ChartData('15', 0),
-      ChartData('16', 0),
-      ChartData('17', 0),
-      ChartData('18', 0),
-      ChartData('19', 0),
-      ChartData('20', 0),
-      ChartData('21', 0),
-      ChartData('22', 0),
-      ChartData('23', 0),
-      ChartData('24', 0),
-      ChartData('25', 0),
-      ChartData('26', 0),
-      ChartData('27', 0),
-      ChartData('28', 0),
-      ChartData('29', 0),
-      ChartData('30', 0),
-      ChartData('31', 0),
-      ChartData('32', 0),
+      ChartDataPowerStrength('01', 0),
+      ChartDataPowerStrength('02', 0),
+      ChartDataPowerStrength('03', 0),
+      ChartDataPowerStrength('04', 0),
+      ChartDataPowerStrength('05', 0),
+      ChartDataPowerStrength('06', 0),
+      ChartDataPowerStrength('07', 0),
+      ChartDataPowerStrength('08', 0),
+      ChartDataPowerStrength('09', 0),
+      ChartDataPowerStrength('10', 0),
+      ChartDataPowerStrength('11', 0),
+      ChartDataPowerStrength('12', 0),
+      ChartDataPowerStrength('13', 0),
+      ChartDataPowerStrength('14', 0),
+      ChartDataPowerStrength('15', 0),
+      ChartDataPowerStrength('16', 0),
+      ChartDataPowerStrength('17', 0),
+      ChartDataPowerStrength('18', 0),
+      ChartDataPowerStrength('19', 0),
+      ChartDataPowerStrength('20', 0),
+      ChartDataPowerStrength('21', 0),
+      ChartDataPowerStrength('22', 0),
+      ChartDataPowerStrength('23', 0),
+      ChartDataPowerStrength('24', 0),
+      ChartDataPowerStrength('25', 0),
+      ChartDataPowerStrength('26', 0),
+      ChartDataPowerStrength('27', 0),
+      ChartDataPowerStrength('28', 0),
+      ChartDataPowerStrength('29', 0),
+      ChartDataPowerStrength('30', 0),
+      ChartDataPowerStrength('31', 0),
+      ChartDataPowerStrength('32', 0),
     ];
     // notifyListeners();
   }
@@ -50,9 +51,3 @@ class PowerStrengthProvider extends ChangeNotifier{
   }
 }
 
-class ChartData {
-  ChartData(this.x, this.y);
- 
-  late String x;
-  late double y;
-}
