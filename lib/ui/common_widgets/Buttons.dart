@@ -21,7 +21,7 @@ ElevatedButton confirmButton(String label, final void Function() func){
         primary: AppColors.main_red,
         padding: EdgeInsets.all(5),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(0), // <-- Radius
+          borderRadius: BorderRadius.circular(5), // <-- Radius
         ),
       ),
       onPressed: func,
@@ -35,7 +35,7 @@ ElevatedButton unSelectedButton(String label, final void Function() func){
         primary: AppColors.gray,
         padding: EdgeInsets.all(5),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(0), // <-- Radius
+          borderRadius: BorderRadius.circular(5), // <-- Radius
         ),
       ),
       onPressed: func,
@@ -46,7 +46,7 @@ ElevatedButton unSelectedButton(String label, final void Function() func){
 ElevatedButton selectedButton(String label, final void Function() func){
   return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: AppColors.main_blue,
+        primary: AppColors.main_red,
         padding: EdgeInsets.all(5),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5), // <-- Radius

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 import 'package:bk_gps_monitoring/route.dart';
 import 'package:bk_gps_monitoring/utils/ColorConstant.dart';
 
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Container(
+      child: Container(
         alignment: Alignment.center,
         // ignore: prefer_const_constructors
         decoration: BoxDecoration(

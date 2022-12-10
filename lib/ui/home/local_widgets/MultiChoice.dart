@@ -1,8 +1,9 @@
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'package:bk_gps_monitoring/ui/common_widgets/NotificationDialog.dart';
+
 import 'package:bk_gps_monitoring/utils/ColorConstant.dart';
+
+import 'package:bk_gps_monitoring/ui/common_widgets/NotificationDialog.dart';
 
 void main() {
   runApp(const MyApp());
@@ -82,8 +83,8 @@ class _MultiChoiceState extends State<MultiChoice> {
                     highlightColor: AppColors.green,
                     splashColor: AppColors.green,
                     borderRadius: BorderRadius.circular(5),
-                    onTap: () => {
-                      widget.onSelectParam(selectedItem)
+                    onTap: () {
+                      widget.onSelectParam(selectedItem);
                     },
                     child: Row(children: [
                       SizedBox(

@@ -1,5 +1,3 @@
-import 'package:bk_gps_monitoring/provider/PowerStrengthProvider.dart';
-import 'package:bk_gps_monitoring/ui/common_widgets/NotificationDialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:new_linux_plugin/new_linux_plugin.dart';
@@ -59,7 +57,7 @@ class GnssSdrController {
     }
     return receiveData;
   }
-    void sendData() async {
+  void sendData() async {
     _newLinuxPlugin.sendData();
   }
 
