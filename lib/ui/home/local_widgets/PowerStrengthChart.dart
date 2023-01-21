@@ -98,8 +98,8 @@ class _PowerStrengthChartState extends State<PowerStrengthChart> {
         children: [
           Expanded(
             child: Container(
-              width: 1000,
-              margin: const EdgeInsets.all(10.0),
+              width: 500,
+              margin: const EdgeInsets.all(5.0),
               padding: const EdgeInsets.all(5.0),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.blueAccent)
@@ -128,7 +128,7 @@ class _PowerStrengthChartState extends State<PowerStrengthChart> {
                     dataSource: widget.powerStrengthProvider.data,
                     isVisible: true,
                     isVisibleInLegend: true,
-                    legendItemText: "C/N0 index\nof each \nSatelite (dB)",
+                    legendItemText: "C/N0\nindex\nof\neach\nSatelite\n(dB)",
                     legendIconType: LegendIconType.rectangle,
                     // selectionBehavior: SelectionBehavior(enable: true, selectedColor: Colors.red, unselectedColor: Colors.blueAccent),
                     xValueMapper: (ChartDataPowerStrength data, _) => data.x,

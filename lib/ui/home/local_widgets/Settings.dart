@@ -41,13 +41,14 @@ class _SettingsState extends State<Settings> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Select GPS Satellite"),
+        title: Text("Select GPS Satellite",
+          style: TextStyle(fontSize: 14),),
         centerTitle: false,
-        toolbarHeight: 50,
+        toolbarHeight: 30,
       ),
       body: Container(
           // width: 1000,
-          margin: const EdgeInsets.all(10.0),
+          margin: const EdgeInsets.all(5.0),
           padding: const EdgeInsets.all(5.0),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.blueAccent)

@@ -85,24 +85,11 @@ class GnssSdrController {
     return receiveData;
   }
 
-  Future<String?> receivePromptI() async {
+  Future<String?> receiveS4() async {
     String? receiveData;
     try {
       receiveData =
-          await _newLinuxPlugin.receivePromptI();
-    } on Exception {
-      if (kDebugMode) {
-        print("exception");
-      }
-    }
-    return receiveData;
-  }
-
-  Future<String?> receivePromptQ() async {
-    String? receiveData;
-    try {
-      receiveData =
-          await _newLinuxPlugin.receivePromptQ();
+          await _newLinuxPlugin.receiveS4();
     } on Exception {
       if (kDebugMode) {
         print("exception");

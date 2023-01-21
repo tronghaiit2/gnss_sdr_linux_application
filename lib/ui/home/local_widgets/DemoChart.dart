@@ -108,14 +108,30 @@ class _DemoChartState extends State<DemoChart> {
   Widget diagram() {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text("Select GPS Satellite"),
-        centerTitle: false,
-        toolbarHeight: 50,
-      ),
       drawer: drawer(),
+      appBar: AppBar(
+        title: Text("Select GPS Satellite", 
+          style: TextStyle(fontSize: 14),),
+        centerTitle: false,
+        toolbarHeight: 30,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(
+                Icons.menu,
+                color: Colors.white,
+                size: 16, // Changing Drawer Icon Size
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            );
+          },
+        ),
+      ),
       body: Container(
-          margin: const EdgeInsets.all(10.0),
+          margin: const EdgeInsets.all(5.0),
           padding: const EdgeInsets.all(5.0),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.blueAccent)
@@ -132,7 +148,7 @@ class _DemoChartState extends State<DemoChart> {
             ),
             primaryYAxis: NumericAxis(
               labelStyle: TextStyle(color: Colors.black),
-              title: AxisTitle(text: "C/N0 (dB)"),
+              title: AxisTitle(text: "S4 index"),
               // minimum: -200000
               // interval: 10
             ),
@@ -148,12 +164,12 @@ class _DemoChartState extends State<DemoChart> {
                 dataSource: widget.demoProvider.data_0,
                 isVisible: true,
                 isVisibleInLegend: true,
-                legendItemText: "Channel I(Q)\nof Satelite (GPS)",
+                legendItemText: "S4",
                 legendIconType: LegendIconType.rectangle,
                 // selectionBehavior: SelectionBehavior(enable: true, selectedColor: Colors.red, unselectedColor: Colors.blueAccent),
                 xValueMapper: (ChartDataDemo data, _) => data.x,
                 yValueMapper: (ChartDataDemo data, _) => data.y,
-                name: 'I/Q',),
+                name: 'S4',),
             ] : 
             <ChartSeries<ChartDataDemo, DateTime>>[
               for(int i = 0; i < widget.demoProvider.itemsSelected; i++) 
@@ -161,13 +177,13 @@ class _DemoChartState extends State<DemoChart> {
                 dataSource: widget.demoProvider.data[i],
                 isVisible: true,
                 isVisibleInLegend: true,
-                legendItemText: "Channel I\nof Satelite ${widget.demoProvider.gpsPRNSelectedList[i]}",
+                legendItemText: "${widget.demoProvider.gpsPRNSelectedList[i]}",
                 legendIconType: LegendIconType.rectangle,
                 // selectionBehavior: SelectionBehavior(enable: true, selectedColor: Colors.red, unselectedColor: Colors.blueAccent),
                 xValueMapper: (ChartDataDemo data, _) => data.x,
                 yValueMapper: (ChartDataDemo data, _) => data.y,
                 animationDuration: 0,
-                name: 'I',),
+                name: 'S4',),
               // for(int i = 0; i < widget.demoProvider.itemsSelected; i++) 
               // LineSeries<ChartDataDemo, DateTime>(
               //   dataSource: widget.demoProvider.channelI[i],
@@ -200,8 +216,8 @@ class _DemoChartState extends State<DemoChart> {
 
   Widget drawer() {
     return Container(
-        height: 300,
-        width: 1280,
+        height: 320,
+        width: 600,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.blueGrey, width: 2)
         ),

@@ -54,6 +54,7 @@ class _MultiChoiceState extends State<MultiChoice> {
         backgroundColor: Colors.blueGrey,
         centerTitle: true,
         leadingWidth: 150,
+        toolbarHeight: 30,
         leading: Row(
           children: [
             IconButton(
@@ -61,12 +62,13 @@ class _MultiChoiceState extends State<MultiChoice> {
                 selectedItem.clear();
                 setState(() {});
               },
-              icon: Icon(Icons.close)
+              icon: Icon(Icons.close, size: 14,)
             ),
             Text(getSelectedItemCount()),
           ],
         ),
-        title: Text("Select GPS Satellite"),
+        title: Text("Select GPS Satellite",
+          style: TextStyle(fontSize: 14),),
         actions: [
           // Visibility(
           //     visible: selectedItem.isNotEmpty,
@@ -88,9 +90,9 @@ class _MultiChoiceState extends State<MultiChoice> {
                     },
                     child: Row(children: [
                       SizedBox(
-                        width: 20,
+                        width: 10,
                       ),
-                      Icon(Icons.check_rounded),
+                      Icon(Icons.check_rounded, size: 14,),
                       SizedBox(
                         width: 10,
                       ),
@@ -103,7 +105,7 @@ class _MultiChoiceState extends State<MultiChoice> {
                         )
                       ),
                       SizedBox(
-                        width: 20,
+                        width: 10,
                       )
                     ],),
                   ),
@@ -131,7 +133,7 @@ class _MultiChoiceState extends State<MultiChoice> {
         ],
       ),
       body: Container(
-        width: 1280,
+        width: 600,
         alignment: Alignment.center,
         child: GridView.count(
         physics: AlwaysScrollableScrollPhysics(),
@@ -140,8 +142,8 @@ class _MultiChoiceState extends State<MultiChoice> {
         mainAxisSpacing: 5,
         shrinkWrap: true,
         primary: false,
-        childAspectRatio: 3,
-        crossAxisCount: 8,
+        childAspectRatio: 2.5,
+        crossAxisCount: 6,
         children: gpsPRNList.map((String gpsPRN) {
         return Card(
             elevation: 5,
@@ -192,25 +194,25 @@ class _MultiChoiceState extends State<MultiChoice> {
                 selectedItem.contains(gpsPRN)
                     ? Icons.check_circle
                     : Icons.radio_button_unchecked,
-                size: 24,
+                size: 16,
                 color: Colors.red,
               ),
               const SizedBox(
-                width: 20,
+                width: 10,
               ),
               SizedBox(
-                width: 40,
-                height: 24.0,
+                width: 20,
+                height: 16,
                 child: Text(
                   gpsPRN,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 14,
                   ),
                 ),
               ),
               const SizedBox(
-                width: 20,
+                width: 10,
               ),
             ],
           ),

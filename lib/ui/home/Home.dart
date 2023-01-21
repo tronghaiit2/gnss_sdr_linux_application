@@ -98,7 +98,7 @@ class _HomeState extends State<Home> {
           appBar: AppBar(
             elevation: 5,
             leadingWidth: 320,
-            toolbarHeight: 50,
+            toolbarHeight: 30,
             backgroundColor: Colors.blueGrey,
             centerTitle: true,
             leading: Builder(
@@ -312,32 +312,30 @@ class _HomeState extends State<Home> {
 
   Future<void> loopReceiver() async {
     int errorCount = 0;
-    // int start, end, dif;
+    int start, end, dif;
     while(_gnssSdrController.loop) {
       _gnssSdrController.sendData();
-      // start = DateTime.now().millisecondsSinceEpoch;
+      start = DateTime.now().millisecondsSinceEpoch;
       await Future.delayed(const Duration(milliseconds: 975), () async {
         try {
           if(_selectedIndex == 2) {
-            String? resultI = await _gnssSdrController.receivePromptI();
-            String? resultQ = await _gnssSdrController.receivePromptQ();
+            String? resultSIRaw = await _gnssSdrController.receiveS4();
 
-            if(resultI != null && resultQ != null) {
-              if(resultI == "end" && resultQ == "end") {
-                errorCount++;
-                if(errorCount > 4) {
+            if(resultSIRaw != null) {
+              if(resultSIRaw == "end") {
+                // errorCount++;
+                // if(errorCount > 4) {
                   _gnssSdrController.isSending = false;
                   _gnssSdrController.loop = false;
                   // ignore: use_build_context_synchronously
                   showWarningDialog("Can not receive GPS signal!", context);
-                }
+                // }
               } else {
                 if (kDebugMode) {
-                  print(resultI);
-                  print(resultQ);
+                  print(resultSIRaw);
                 }
                 errorCount = 0;
-                _demoProvider.updateValue(json.decode(resultI), json.decode(resultQ));
+                _demoProvider.updateValue(json.decode(resultSIRaw), json.decode(resultSIRaw));
               }
             } else {
               errorCount++;
@@ -405,6 +403,12 @@ class _HomeState extends State<Home> {
           _gnssSdrController.loop = false;
         } 
       });
+
+      end = DateTime.now().millisecondsSinceEpoch;
+      dif = end - start;
+      if (kDebugMode) {
+        print("diff "+ dif.toString());
+      }
     }
   }
 

@@ -10,7 +10,7 @@ void main() async {
   await windowManager.ensureInitialized();
   // ignore: prefer_const_constructors
   WindowOptions windowOptions = WindowOptions(
-    minimumSize: const Size(1680, 720),
+    minimumSize: const Size(720, 360),
     maximumSize: Size.infinite,
     backgroundColor: Colors.transparent,
     skipTaskbar: false,

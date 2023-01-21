@@ -97,8 +97,8 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
       return Scaffold(
           appBar: AppBar(
             elevation: 5,
-            leadingWidth: 320,
-            toolbarHeight: 50,
+            leadingWidth: 220,
+            toolbarHeight: 40,
             backgroundColor: Colors.blueGrey,
             centerTitle: true,
             leading: Builder(
@@ -107,16 +107,16 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
                   child: Row(
                     children: [
                       Container(
-                        width: 150,
-                        padding: EdgeInsets.all(10),
+                        width: 81,
+                        padding: EdgeInsets.all(5),
                         child: Image.asset("assets/images/LOGO_SOICT.png"),
                       ),
                       Container(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(5),
                         child: selectedButton("Start", start),
                       ),
                       Container(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(5),
                         child: selectedButton("End", end),
                       ),
                     ],
@@ -126,25 +126,25 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
             ),
             title: const Text(
               'BK GPS Monitoring',
-              textAlign: TextAlign.center, maxLines: 1,
-              style: TextStyle(color: Colors.red, fontSize: 28, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center, maxLines: 1, overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: Colors.red, fontSize: 22, fontWeight: FontWeight.bold),
             ),
             actions: <Widget>[
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(5),
                 child: selectedButton("Stop", stop),
               ),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(5),
                 child: selectedButton("Resume", resume),
               ),
               Container(
-                width: 150,
+                width: 100,
                 alignment: Alignment.center,
                   child: const Text(
                   '20183730',
                   textAlign: TextAlign.center, maxLines: 1,
-                  style: TextStyle(color: Colors.redAccent, fontSize: 24, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.redAccent, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               )
             ],
@@ -152,7 +152,7 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
           body: Row(
             children: [
               SizedBox(
-                width: 150,
+                width: 80,
                 child: Column(
                   children: [
                     tabSelection(),
@@ -245,8 +245,8 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
     return Column(
       children: [
         SizedBox(
-          height: 200,
-          child: Image.asset("assets/images/LOGO_HUST.png", width: 100,),
+          height: 80,
+          child: Image.asset("assets/images/LOGO_HUST.png", width: 50,),
         ),
       ],
     );
@@ -312,10 +312,10 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
 
   Future<void> loopReceiver() async {
     int errorCount = 0;
-    // int start, end, dif;
+    int start, end, dif;
     while(_gnssSdrController.loop) {
       _gnssSdrController.sendData();
-      // start = DateTime.now().millisecondsSinceEpoch;
+      start = DateTime.now().millisecondsSinceEpoch;
       await Future.delayed(const Duration(milliseconds: 975), () async {
         try {
           String? result;
@@ -329,13 +329,9 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
               break;
             }
             case 2: {
-              result = await _gnssSdrController.receivePromptI();
+              result = await _gnssSdrController.receiveS4();
               break;
             }
-            // case 2: {
-            //   result = await _gnssSdrController.receivePromptQ();
-            //   break;
-            // }
           }
 
           if(result != null) {
@@ -382,6 +378,12 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
           _gnssSdrController.loop = false;
         } 
       });
+
+      end = DateTime.now().millisecondsSinceEpoch;
+      dif = end - start;
+      if (kDebugMode) {
+        print("dif: "+ dif.toString());
+      }
     }
   }
 
