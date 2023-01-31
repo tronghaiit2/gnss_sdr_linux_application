@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
@@ -252,7 +253,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void start() {
+  void start() async {
     if(_gnssSdrController.messageQueueAvailable == false) {
       _gnssSdrController.initMessageQueue();
       _gnssSdrController.messageQueueAvailable = true;
@@ -260,7 +261,8 @@ class _HomeState extends State<Home> {
     // final dir = await getTemporaryDirectory();
     // Process.run("${dir.path}/assets/tmp/send", []);
     // Process.run("assets/tmp/send", []);
-    // Process.run("assets/bin/gnss-sdr", ["--config_file=assets/conf/test-c2-GNSS-SDR-receiver.conf"]);
+    // Process.run("assets/bin/gnss-sdr", ["--config_file=test-gnss-sdr_GPS_L1_rtlsdr_realtime.conf"]);
+    Process.run("assets/bin/gnss-sdr", ["--config_file=assets/conf/test-c2-GNSS-SDR-receiver.conf"]);
     // _sendData();
 
     if(_gnssSdrController.isSending) {
@@ -271,7 +273,16 @@ class _HomeState extends State<Home> {
     }
     _gnssSdrController.isSending = true;
     _gnssSdrController.loop = true;
-    loopReceiver();
+    showLoading(context, "Starting GNSS-SDR");
+    await Future.delayed(const Duration(seconds: 5), () async {
+      Navigator.of(context).pop();
+      _powerStrengthProvider.initData();
+      _powerStrengthProvider.updateValue({});
+      _s4indexProvider.initData();
+      _s4indexProvider.updateData({});
+      loopReceiver();
+    });
+    
   }
 
   void end() {
@@ -283,6 +294,7 @@ class _HomeState extends State<Home> {
     }
     _gnssSdrController.isSending = false;
     _gnssSdrController.loop = false;
+    _gnssSdrController.endData();
     _gnssSdrController.endMessageQueue();
     _gnssSdrController.messageQueueAvailable = false;
   }

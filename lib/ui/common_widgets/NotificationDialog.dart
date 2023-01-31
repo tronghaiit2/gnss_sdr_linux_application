@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:bk_gps_monitoring/ui/common_widgets/Buttons.dart';
 import 'package:bk_gps_monitoring/utils/ColorConstant.dart';
 
-showLoading(BuildContext context){
+showLoading(BuildContext context, String content){
   return showDialog(
     // The user CANNOT close this dialog  by pressing outsite it
       barrierDismissible: false,
@@ -16,16 +16,16 @@ showLoading(BuildContext context){
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children:  [
                 // The loading indicator
-                CircularProgressIndicator(
+                const CircularProgressIndicator(
                   color: AppColors.red,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 // Some text
-                Text('Loading...')
+                Text(content)
               ],
             ),
           ),
