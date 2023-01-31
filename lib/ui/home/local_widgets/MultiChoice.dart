@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:bk_gps_monitoring/utils/ColorConstant.dart';
 
 import 'package:bk_gps_monitoring/ui/common_widgets/NotificationDialog.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
       home: MultiChoice(
         onSelectParam: (HashSet<String> param) {
             // do something with param
-        }
+        },
+        selectedItems: [],
       ),
     );
   }
@@ -30,7 +32,8 @@ class MyApp extends StatelessWidget {
 
 class MultiChoice extends StatefulWidget {
   Function(HashSet<String>) onSelectParam;
-  MultiChoice({Key? key, required this.onSelectParam}) : super(key: key);
+  List<String> selectedItems;
+  MultiChoice({Key? key, required this.onSelectParam, required this.selectedItems}) : super(key: key);
 
   @override
   State<MultiChoice> createState() => _MultiChoiceState();
@@ -44,11 +47,39 @@ class _MultiChoiceState extends State<MultiChoice> {
     "25", "26", "27", "28", "29", "30", "31", "32"
   ];
   int maxSelections = 8;
+  bool _init = false;
 
   HashSet<String> selectedItem = HashSet<String>();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    for(var item in widget.selectedItems) {
+      selectedItem.add(item);
+    }
+    _init = true;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if(!_init) {
+      return Container(
+        alignment: Alignment.center,
+        // ignore: prefer_const_constructors
+        decoration: BoxDecoration(
+          color: Colors.blueGrey,
+        ),
+        child: const SizedBox(
+          height: 300,
+          width: 300,
+          child: SpinKitCircle(
+            color: AppColors.main_red,
+            size: 50,
+          )
+        )
+      );
+    } else {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
@@ -59,10 +90,11 @@ class _MultiChoiceState extends State<MultiChoice> {
           children: [
             IconButton(
               onPressed: () {
+                // Navigator.of(context).pop();
                 selectedItem.clear();
                 setState(() {});
               },
-              icon: Icon(Icons.close, size: 14,)
+              icon: Icon(Icons.remove_circle, size: 14,)
             ),
             Text(getSelectedItemCount()),
           ],
@@ -156,6 +188,7 @@ class _MultiChoiceState extends State<MultiChoice> {
         ),
       )
     );
+  }
   }
 
   String getSelectedItemCount() {

@@ -128,12 +128,17 @@ class _PowerStrengthChartState extends State<PowerStrengthChart> {
                     dataSource: widget.powerStrengthProvider.data,
                     isVisible: true,
                     isVisibleInLegend: true,
+                    dataLabelSettings: DataLabelSettings(
+                        // Renders the data label
+                        isVisible: true
+                    ),
                     legendItemText: "C/N0\nindex\nof\neach\nSatelite\n(dB)",
                     legendIconType: LegendIconType.rectangle,
                     // selectionBehavior: SelectionBehavior(enable: true, selectedColor: Colors.red, unselectedColor: Colors.blueAccent),
                     xValueMapper: (ChartDataPowerStrength data, _) => data.x,
                     yValueMapper: (ChartDataPowerStrength data, _) => data.y,
                     name: 'dB',
+                    animationDuration: 10,
                     color: Colors.blueAccent,
                   )
                 ]   

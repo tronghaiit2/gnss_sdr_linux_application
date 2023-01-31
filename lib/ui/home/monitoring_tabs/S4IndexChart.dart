@@ -65,7 +65,7 @@ class _S4IndexChartState extends State<S4IndexChart> {
     if(!_init) {
       Future.delayed(const Duration(seconds: 0), () async {
         widget.s4indexProvider.initData();
-        widget.s4indexProvider.updateValue({}, {});
+        widget.s4indexProvider.updateData({});
         _init = true;
       });
 
@@ -227,10 +227,13 @@ class _S4IndexChartState extends State<S4IndexChart> {
             widget.s4indexProvider.gpsPRNSelectedList = selectedList.toList();
             widget.s4indexProvider.itemsSelected = widget.s4indexProvider.gpsPRNSelectedList.length;
             widget.s4indexProvider.gpsPRNSelectedList.sort();
-            widget.s4indexProvider.initData();
-            Navigator.pop(context);
-            print(widget.s4indexProvider.gpsPRNSelectedList.toString());
-          }
+            setState(() {
+              widget.s4indexProvider.initData();
+              Navigator.pop(context);
+              print(widget.s4indexProvider.gpsPRNSelectedList.toString());
+            });
+          },
+          selectedItems: widget.s4indexProvider.gpsPRNSelectedList,
         ),
       );
   }

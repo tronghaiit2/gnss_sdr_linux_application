@@ -261,7 +261,7 @@ class _HomeState extends State<Home> {
     // final dir = await getTemporaryDirectory();
     // Process.run("${dir.path}/assets/tmp/send", []);
     // Process.run("assets/tmp/send", []);
-    // Process.run("assets/bin/gnss-sdr", ["--config_file=test-gnss-sdr_GPS_L1_rtlsdr_realtime.conf"]);
+    // Process.run("assets/bin/gnss-sdr", ["--config_file=assets/conf/test-gnss-sdr_GPS_L1_rtlsdr_realtime.conf"]);
     Process.run("assets/bin/gnss-sdr", ["--config_file=assets/conf/test-c2-GNSS-SDR-receiver.conf"]);
     // _sendData();
 
