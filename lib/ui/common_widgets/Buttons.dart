@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bk_gps_monitoring/utils/ColorConstant.dart';
+import 'package:bk_gps_monitoring/utils/AppColors.dart';
 
 ElevatedButton selectButton(String label, final void Function() func){
   return ElevatedButton(

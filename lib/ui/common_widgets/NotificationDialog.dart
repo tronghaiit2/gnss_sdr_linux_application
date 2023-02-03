@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bk_gps_monitoring/ui/common_widgets/Buttons.dart';
-import 'package:bk_gps_monitoring/utils/ColorConstant.dart';
+import 'package:bk_gps_monitoring/utils/AppColors.dart';
 
 showLoading(BuildContext context, String content){
   return showDialog(

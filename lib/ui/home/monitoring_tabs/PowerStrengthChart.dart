@@ -4,7 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import 'package:bk_gps_monitoring/utils/ColorConstant.dart';
+import 'package:bk_gps_monitoring/utils/AppColors.dart';
 
 import 'package:bk_gps_monitoring/controller/GnssSdrController.dart';
 import 'package:bk_gps_monitoring/models/ChartDataPowerStrength.dart';

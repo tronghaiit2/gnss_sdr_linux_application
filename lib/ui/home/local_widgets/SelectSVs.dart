@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 
-import 'package:bk_gps_monitoring/utils/ColorConstant.dart';
+import 'package:bk_gps_monitoring/utils/AppColors.dart';
 
 import 'package:bk_gps_monitoring/ui/common_widgets/NotificationDialog.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: MultiChoice(
+      home: SelectSVs(
         onSelectParam: (HashSet<String> param) {
             // do something with param
         },
@@ -30,16 +30,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MultiChoice extends StatefulWidget {
+class SelectSVs extends StatefulWidget {
   Function(HashSet<String>) onSelectParam;
   List<String> selectedItems;
-  MultiChoice({Key? key, required this.onSelectParam, required this.selectedItems}) : super(key: key);
+  SelectSVs({Key? key, required this.onSelectParam, required this.selectedItems}) : super(key: key);
 
   @override
-  State<MultiChoice> createState() => _MultiChoiceState();
+  State<SelectSVs> createState() => _SelectSVsState();
 }
 
-class _MultiChoiceState extends State<MultiChoice> {
+class _SelectSVsState extends State<SelectSVs> {
   List<String> gpsPRNList = [
     "01", "02", "03", "04", "05", "06", "07", "08",
     "09", "10", "11", "12", "13", "14", "15", "16",

@@ -6,14 +6,14 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 
-import 'package:bk_gps_monitoring/utils/ColorConstant.dart';
+import 'package:bk_gps_monitoring/utils/AppColors.dart';
 
-import 'package:bk_gps_monitoring/models/ChartDataDemo.dart';
+import 'package:bk_gps_monitoring/models/ChartDataS4Index.dart';
 import 'package:bk_gps_monitoring/controller/GnssSdrController.dart';
 
 import 'package:bk_gps_monitoring/provider/S4IndexProvider.dart';
 
-import 'package:bk_gps_monitoring/ui/home/local_widgets/MultiChoice.dart';
+import 'package:bk_gps_monitoring/ui/home/local_widgets/SelectSVs.dart';
 
 
 class S4IndexChart extends StatefulWidget {
@@ -35,7 +35,7 @@ class _S4IndexChartState extends State<S4IndexChart> {
   // late bool loop = false;
   // late bool isSending = false;
 
-  // late List<List<ChartDataDemo>> data;
+  // late List<List<ChartDataS4Index>> data;
   late TooltipBehavior _tooltip;
 
   // late List<String> gpsPRNSelectedList;
@@ -159,53 +159,53 @@ class _S4IndexChartState extends State<S4IndexChart> {
             tooltipBehavior: _tooltip,
             series: 
             widget.s4indexProvider.itemsSelected == 0 ? 
-            <ChartSeries<ChartDataDemo, DateTime>>[
-              LineSeries<ChartDataDemo, DateTime>(
+            <ChartSeries<ChartDataS4Index, DateTime>>[
+              LineSeries<ChartDataS4Index, DateTime>(
                 dataSource: widget.s4indexProvider.data_0,
                 isVisible: true,
                 isVisibleInLegend: true,
                 legendItemText: "S4",
                 legendIconType: LegendIconType.rectangle,
                 // selectionBehavior: SelectionBehavior(enable: true, selectedColor: Colors.red, unselectedColor: Colors.blueAccent),
-                xValueMapper: (ChartDataDemo data, _) => data.x,
-                yValueMapper: (ChartDataDemo data, _) => data.y,
+                xValueMapper: (ChartDataS4Index data, _) => data.x,
+                yValueMapper: (ChartDataS4Index data, _) => data.y,
                 name: 'S4',),
             ] : 
-            <ChartSeries<ChartDataDemo, DateTime>>[
+            <ChartSeries<ChartDataS4Index, DateTime>>[
               for(int i = 0; i < widget.s4indexProvider.itemsSelected; i++) 
-              LineSeries<ChartDataDemo, DateTime>(
+              LineSeries<ChartDataS4Index, DateTime>(
                 dataSource: widget.s4indexProvider.data[i],
                 isVisible: true,
                 isVisibleInLegend: true,
                 legendItemText: "${widget.s4indexProvider.gpsPRNSelectedList[i]}",
                 legendIconType: LegendIconType.rectangle,
                 // selectionBehavior: SelectionBehavior(enable: true, selectedColor: Colors.red, unselectedColor: Colors.blueAccent),
-                xValueMapper: (ChartDataDemo data, _) => data.x,
-                yValueMapper: (ChartDataDemo data, _) => data.y,
+                xValueMapper: (ChartDataS4Index data, _) => data.x,
+                yValueMapper: (ChartDataS4Index data, _) => data.y,
                 animationDuration: 0,
                 name: 'S4',),
               // for(int i = 0; i < widget.s4indexProvider.itemsSelected; i++) 
-              // LineSeries<ChartDataDemo, DateTime>(
+              // LineSeries<ChartDataS4Index, DateTime>(
               //   dataSource: widget.s4indexProvider.channelI[i],
               //   isVisible: true,
               //   isVisibleInLegend: true,
               //   legendItemText: "Channel I\nof Satelite ${widget.s4indexProvider.gpsPRNSelectedList[i]}",
               //   legendIconType: LegendIconType.rectangle,
               //   // selectionBehavior: SelectionBehavior(enable: true, selectedColor: Colors.red, unselectedColor: Colors.blueAccent),
-              //   xValueMapper: (ChartDataDemo data, _) => data.x,
-              //   yValueMapper: (ChartDataDemo data, _) => data.y,
+              //   xValueMapper: (ChartDataS4Index data, _) => data.x,
+              //   yValueMapper: (ChartDataS4Index data, _) => data.y,
               //   animationDuration: 0,
               //   name: 'I',),
               // for(int i = 0; i < widget.s4indexProvider.itemsSelected; i++) 
-              // LineSeries<ChartDataDemo, DateTime>(
+              // LineSeries<ChartDataS4Index, DateTime>(
               //   dataSource: widget.s4indexProvider.channelQ[i],
               //   isVisible: true,
               //   isVisibleInLegend: true,
               //   legendItemText: "Channel Q\nof Satelite ${widget.s4indexProvider.gpsPRNSelectedList[i]}",
               //   legendIconType: LegendIconType.rectangle,
               //   // selectionBehavior: SelectionBehavior(enable: true, selectedColor: Colors.red, unselectedColor: Colors.blueAccent),
-              //   xValueMapper: (ChartDataDemo data, _) => data.x,
-              //   yValueMapper: (ChartDataDemo data, _) => data.y,
+              //   xValueMapper: (ChartDataS4Index data, _) => data.x,
+              //   yValueMapper: (ChartDataS4Index data, _) => data.y,
               //   animationDuration: 0,
               //   name: 'Q',),
             ]
@@ -221,7 +221,7 @@ class _S4IndexChartState extends State<S4IndexChart> {
         decoration: BoxDecoration(
           border: Border.all(color: Colors.blueGrey, width: 2)
         ),
-        child: MultiChoice(
+        child: SelectSVs(
           onSelectParam: (HashSet<String> selectedList) {
             // do something with param
             widget.s4indexProvider.gpsPRNSelectedList = selectedList.toList();

@@ -8,7 +8,7 @@ import 'package:new_linux_plugin/new_linux_plugin.dart';
 
 import 'package:bk_gps_monitoring/controller/GnssSdrController.dart';
 
-import 'package:bk_gps_monitoring/utils/ColorConstant.dart';
+import 'package:bk_gps_monitoring/utils/AppColors.dart';
 
 import 'package:bk_gps_monitoring/provider/PowerStrengthProvider.dart';
 import 'package:bk_gps_monitoring/provider/S4IndexProvider.dart';
@@ -261,8 +261,9 @@ class _HomeState extends State<Home> {
     // final dir = await getTemporaryDirectory();
     // Process.run("${dir.path}/assets/tmp/send", []);
     // Process.run("assets/tmp/send", []);
-    // Process.run("assets/bin/gnss-sdr", ["--config_file=assets/conf/test-gnss-sdr_GPS_L1_rtlsdr_realtime.conf"]);
-    Process.run("assets/bin/gnss-sdr", ["--config_file=assets/conf/test-c2-GNSS-SDR-receiver.conf"]);
+    Process.run("assets/bin/gnss-sdr", ["--config_file=assets/conf/test-gnss-sdr_GPS_L1_rtlsdr_realtime.conf"]);
+    // Process.run("assets/bin/gnss-sdr", ["--config_file=assets/conf/test-c2-trees-GNSS-SDR-receiver.conf"]);
+    // Process.run("assets/bin/gnss-sdr", ["--config_file=assets/conf/test-c2-GNSS-SDR-receiver.conf"]);
     // _sendData();
 
     if(_gnssSdrController.isSending) {
