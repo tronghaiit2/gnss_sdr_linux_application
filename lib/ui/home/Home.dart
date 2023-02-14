@@ -16,9 +16,9 @@ import 'package:bk_gps_monitoring/provider/S4IndexProvider.dart';
 import 'package:bk_gps_monitoring/ui/common_widgets/Buttons.dart';
 import 'package:bk_gps_monitoring/ui/common_widgets/NotificationDialog.dart';
 
-import 'package:bk_gps_monitoring/ui/home/monitoring_tabs/History.dart';
-import 'package:bk_gps_monitoring/ui/home/monitoring_tabs/S4IndexChart.dart';
-import 'package:bk_gps_monitoring/ui/home/monitoring_tabs/PowerStrengthChart.dart';
+import 'package:bk_gps_monitoring/ui/home/monitoring_tabs/HistoryTab.dart';
+import 'package:bk_gps_monitoring/ui/home/monitoring_tabs/S4IndexTab.dart';
+import 'package:bk_gps_monitoring/ui/home/monitoring_tabs/PowerStrengthTab.dart';
 
 
 class Home extends StatefulWidget {
@@ -65,9 +65,9 @@ class _HomeState extends State<Home> {
         _s4indexProvider.initData();
         _s4indexProvider.updateData({});
         screens = [
-          History(gnssSdrController: _gnssSdrController),
-          PowerStrengthChart(gnssSdrController: _gnssSdrController, powerStrengthProvider: _powerStrengthProvider),
-          S4IndexChart(gnssSdrController: _gnssSdrController, s4indexProvider: _s4indexProvider),
+          HistoryTab(gnssSdrController: _gnssSdrController),
+          PowerStrengthTab(gnssSdrController: _gnssSdrController, powerStrengthProvider: _powerStrengthProvider),
+          S4IndexTab(gnssSdrController: _gnssSdrController, s4indexProvider: _s4indexProvider),
         ];
         _init = true;
       });
@@ -261,7 +261,7 @@ class _HomeState extends State<Home> {
     // final dir = await getTemporaryDirectory();
     // Process.run("${dir.path}/assets/tmp/send", []);
     // Process.run("assets/tmp/send", []);
-    Process.run("assets/bin/gnss-sdr", ["--config_file=assets/conf/test-gnss-sdr_GPS_L1_rtlsdr_realtime.conf"]);
+    // Process.run("assets/bin/gnss-sdr", ["--config_file=assets/conf/test-gnss-sdr_GPS_L1_rtlsdr_realtime.conf"]);
     // Process.run("assets/bin/gnss-sdr", ["--config_file=assets/conf/test-c2-trees-GNSS-SDR-receiver.conf"]);
     // Process.run("assets/bin/gnss-sdr", ["--config_file=assets/conf/test-c2-GNSS-SDR-receiver.conf"]);
     // _sendData();
@@ -298,6 +298,7 @@ class _HomeState extends State<Home> {
     _gnssSdrController.endData();
     _gnssSdrController.endMessageQueue();
     _gnssSdrController.messageQueueAvailable = false;
+    Process.run("pkill", ["-f gnss-sdr"]);
   }
 
   void stop() {

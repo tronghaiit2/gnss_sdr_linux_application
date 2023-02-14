@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:bk_gps_monitoring/controller/GnssSdrController.dart';
 
-class History extends StatefulWidget {
-  History({Key? key, required this.gnssSdrController}) : super(key: key);
+class HistoryTab extends StatefulWidget {
+  HistoryTab({Key? key, required this.gnssSdrController}) : super(key: key);
   final GnssSdrController gnssSdrController;
 
   @override
-  _HistoryState createState() => _HistoryState();
+  _HistoryTabState createState() => _HistoryTabState();
 }
 
-class _HistoryState extends State<History> {
+class _HistoryTabState extends State<HistoryTab> {
   // late widget.gnssSdrController widget.gnssSdrController;
 
   // late bool messageQueueAvailable = false;
@@ -41,7 +41,7 @@ class _HistoryState extends State<History> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("History diagrams",
+        title: Text("HistoryTab diagrams",
           style: TextStyle(fontSize: 14),),
         centerTitle: false,
         toolbarHeight: 30,

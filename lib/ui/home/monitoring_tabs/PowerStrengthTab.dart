@@ -13,16 +13,16 @@ import 'package:bk_gps_monitoring/provider/PowerStrengthProvider.dart';
 
 
 
-class PowerStrengthChart extends StatefulWidget {
+class PowerStrengthTab extends StatefulWidget {
   late PowerStrengthProvider powerStrengthProvider;
-  PowerStrengthChart({Key? key, required this.gnssSdrController, required this.powerStrengthProvider}) : super(key: key);
+  PowerStrengthTab({Key? key, required this.gnssSdrController, required this.powerStrengthProvider}) : super(key: key);
   final GnssSdrController gnssSdrController;
 
   @override
-  State<PowerStrengthChart>  createState() => _PowerStrengthChartState();
+  State<PowerStrengthTab>  createState() => _PowerStrengthTabState();
 }
 
-class _PowerStrengthChartState extends State<PowerStrengthChart> {
+class _PowerStrengthTabState extends State<PowerStrengthTab> {
   // late PowerStrengthProvider widget.powerStrengthProvider;
   late bool _init = false;
 

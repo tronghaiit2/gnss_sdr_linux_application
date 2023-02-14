@@ -16,16 +16,16 @@ import 'package:bk_gps_monitoring/provider/S4IndexProvider.dart';
 import 'package:bk_gps_monitoring/ui/home/local_widgets/SelectSVs.dart';
 
 
-class S4IndexChart extends StatefulWidget {
+class S4IndexTab extends StatefulWidget {
   late S4IndexProvider s4indexProvider;
-  S4IndexChart({Key? key, required this.gnssSdrController, required this.s4indexProvider}) : super(key: key);
+  S4IndexTab({Key? key, required this.gnssSdrController, required this.s4indexProvider}) : super(key: key);
   final GnssSdrController gnssSdrController;
 
   @override
-  State<S4IndexChart>  createState() => _S4IndexChartState();
+  State<S4IndexTab>  createState() => _S4IndexTabState();
 }
 
-class _S4IndexChartState extends State<S4IndexChart> {
+class _S4IndexTabState extends State<S4IndexTab> {
   // late s4indexProvider widget.s4indexProvider;
   late bool _init = false;
 

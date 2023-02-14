@@ -94,7 +94,7 @@ class _SelectSVsState extends State<SelectSVs> {
                 selectedItem.clear();
                 setState(() {});
               },
-              icon: Icon(Icons.remove_circle, size: 14,)
+              icon: Icon(Icons.remove_circle, size: 14,color: AppColors.red,)
             ),
             Text(getSelectedItemCount()),
           ],
